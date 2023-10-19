@@ -1,6 +1,18 @@
 # **MSD-Mixer**: A Multi-Scale Decomposition MLP-Mixer for Time Series Analysis
 
-This is the [PyTorch](https://pytorch.org/) implementation of our paper: *A Multi-Scale Decomposition MLP-Mixer for Time Series Analysis* (under review).
+This is the [PyTorch](https://pytorch.org/) implementation of our paper: ***A Multi-Scale Decomposition MLP-Mixer for Time Series Analysis***. (https://arxiv.org/abs/2310.11959)
+
+If you find this repo useful, please consider cite our paper:
+```
+@misc{zhong2023multiscale,
+      title={A Multi-Scale Decomposition MLP-Mixer for Time Series Analysis}, 
+      author={Shuhan Zhong and Sizhe Song and Guanyao Li and Weipeng Zhuo and Yang Liu and S. -H. Gary Chan},
+      year={2023},
+      eprint={2310.11959},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
+}
+```
 
 ## Abstract
 Time series data, often characterized by unique composition and complex multi-scale temporal variations, requires special consideration of decomposition and multi-scale modeling in its analysis. Existing deep learning methods on this best fit to only univariate time series, or have not sufficiently accounted for sub-series modeling and the decomposition completeness. To overcome these challenges, we propose **MSD-Mixer**, a **M**ulti-**S**cale **D**ecomposition MLP-Mixer which learns to explicitly decompose the input time series into different components, and represents the components in different layers. To handle multi-scale temporal patterns and inter-channel dependencies, we propose a novel temporal patching approach to model the time series as multi-scale sub-series, i.e., patches, and employ MLPs to mix intra- and inter-patch variations and channel-wise correlations. In addition, we propose a loss function to constrain both the magnitude and autocorrelation of the decomposition residual for decomposition completeness. Through extensive experiments on various real-world datasets for five common time series analysis tasks (long- and short-term forecasting, imputation, anomaly detection, and classification), we demonstrate that MSDMixer consistently achieves significantly better performance in comparison with other state-of-the-art task-general and taskspecific approaches.

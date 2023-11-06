@@ -1,8 +1,8 @@
 # **MSD-Mixer**: A Multi-Scale Decomposition MLP-Mixer for Time Series Analysis
 
-This is the [PyTorch](https://pytorch.org/) implementation of our paper: ***A Multi-Scale Decomposition MLP-Mixer for Time Series Analysis***. (https://arxiv.org/abs/2310.11959)
+This is the [PyTorch](https://pytorch.org/) and [Lightning](https://lightning.ai/) implementation of our paper: ***A Multi-Scale Decomposition MLP-Mixer for Time Series Analysis***. (https://arxiv.org/abs/2310.11959)
 
-If you find this repo useful, please consider cite our paper:
+If you find this repo useful, please consider citing our paper:
 ```
 @misc{zhong2023multiscale,
       title={A Multi-Scale Decomposition MLP-Mixer for Time Series Analysis}, 
@@ -13,9 +13,17 @@ If you find this repo useful, please consider cite our paper:
       primaryClass={cs.LG}
 }
 ```
+## Table of Contents
+
+- [Abstract](#abstract)
+- [Dependency Setup](#dependency-setup)
+- [Dataset Preparation](#dataset-preparation)
+- [Run MSD-Mixer](#run-msd-mixer)
+- [Baselines](#baselines)
+- [Acknoledgements](#acknowledgements)
 
 ## Abstract
-Time series data, often characterized by unique composition and complex multi-scale temporal variations, requires special consideration of decomposition and multi-scale modeling in its analysis. Existing deep learning methods on this best fit to only univariate time series, or have not sufficiently accounted for sub-series modeling and the decomposition completeness. To overcome these challenges, we propose **MSD-Mixer**, a **M**ulti-**S**cale **D**ecomposition MLP-Mixer which learns to explicitly decompose the input time series into different components, and represents the components in different layers. To handle multi-scale temporal patterns and inter-channel dependencies, we propose a novel temporal patching approach to model the time series as multi-scale sub-series, i.e., patches, and employ MLPs to mix intra- and inter-patch variations and channel-wise correlations. In addition, we propose a loss function to constrain both the magnitude and autocorrelation of the decomposition residual for decomposition completeness. Through extensive experiments on various real-world datasets for five common time series analysis tasks (long- and short-term forecasting, imputation, anomaly detection, and classification), we demonstrate that MSDMixer consistently achieves significantly better performance in comparison with other state-of-the-art task-general and taskspecific approaches.
+Time series data, including univariate and multivariate ones, are characterized by unique composition and complex multi-scale temporal variations. They often require special consideration of decomposition and multi-scale modeling to analyze. Existing deep learning methods on this best fit to univariate time series only, and have not sufficiently considered sub-series level modeling and decomposition completeness. To address these challenges, we propose **MSD-Mixer**, a **M**ulti-**S**cale **D**ecomposition MLP-**Mixer**, which learns to explicitly decompose the input time series into different components, and represent the components in different layers. To handle the multi-scale temporal patterns and multivariate dependencies, we propose a novel temporal patching approach to model the time series as multi-scale sub-series (i.e., patches), and employ MLPs to capture intra- and inter-patch variations and channel-wise correlations. In addition, we propose a novel loss function to constrain both the magnitude and autocorrelation of the decomposition residual for better decomposition completeness. Through extensive experiments on various real-world datasets for five common time series analysis tasks, we demonstrate that MSD-Mixer consistently and significantly outperforms other state-of-the-art algorithms.
 
 ![overview](./figs/overview.png)
 
@@ -52,7 +60,7 @@ Please download the datasets from [dataset.zip](https://hkustconnect-my.sharepoi
   weather/
 ```
 
-## Run
+## Run MSD-Mixer
 
 Please use `python main.py` to run the experiments. Please use the `-h` or `--help` argument for details.
 
@@ -135,6 +143,14 @@ Example training commands:
     python main.py cls --dataset awr scp1 scp2
     ```
 Logs, results, and model checkpoints will be saved in `/path/to/MSD-Mixer/logs/cls`
+
+## Baselines
+
+* For task-general baselines, including `TimesNet`, `PatchTST`, `DLinear`, `LightTS`, `ETSformer`, `FEDformer`, and `NST`, as well as `N-BEATS` and `N-HiTS` for short-term forecasting, and `Anomaly Transformer` for anomaly detection, we follow and reuse the unified implementations from [Time Series Library (TSlib)](https://github.com/thuml/Time-Series-Library).
+
+* For `Scaleformer` for long-term forecasting, we follow the official implementation from the  [Scaleformer paper](https://github.com/BorealisAI/scaleformer).
+
+* For `TARNet`, `DTWD`, `TapNet`, `MiniRocket`, and `TST` for classification, we follow the implementations from the [TARNet paper](https://github.com/ranakroychowdhury/TARNet). And for `FormerTime` for classification, we follow the implementation from the [FormerTime paper](https://github.com/icantnamemyself/FormerTime)
 
 ## Acknowledgements
 

@@ -4,8 +4,20 @@ import torch.nn.functional as F
 from einops import rearrange, reduce
 from einops.layers.torch import Rearrange
 from timm.models.layers import DropPath
-from .utils import get_activation
+# from .utils import get_activation
+from torchsummary import summary
 
+def get_activation(activ: str):
+    if activ == "gelu":
+        return nn.GELU()
+    elif activ == "sigmoid":
+        return nn.Sigmoid()
+    elif activ == "tanh":
+        return nn.Tanh()
+    elif activ == "relu":
+        return nn.ReLU()
+
+    raise RuntimeError("activation should not be {}".format(activ))
 
 class MLPBlock(nn.Module):
 
@@ -251,3 +263,26 @@ class MSDMixer(nn.Module):
             return y_pred, x
         else:
             return None, x
+
+
+
+
+if __name__ =="__main__":
+    input_len = 96
+    h_dim = 512
+    input_chn = 11
+    out_chn = 7
+    patch_size = 24
+
+    model_ptch_encoder = PatchEncoder(input_len, h_dim, input_chn, h_dim, out_chn, patch_size, h_dim, norm=None)
+    model_ptch_encoder.to('cuda:0')
+    summary(model_ptch_encoder, input_size=(input_chn,input_len,))
+
+
+    model_ptch_decoder = PatchDecoder(input_len, h_dim, out_chn, h_dim,out_chn, patch_size, h_dim, norm=None)
+    model_ptch_decoder.to('cuda:0')
+    summary(model_ptch_decoder, input_size=(out_chn,input_len//patch_size))
+
+    model_predict_head = PredictionHead(input_len//patch_size, input_len, h_dim, out_chn, out_chn, h_dim, activ="gelu")
+    model_predict_head.to('cuda:0')
+    summary(model_predict_head, input_size=(out_chn,input_len//patch_size))

@@ -1,26 +1,40 @@
 # **MSD-Mixer**: A Multi-Scale Decomposition MLP-Mixer for Time Series Analysis
 
-This is the [PyTorch](https://pytorch.org/) and [Lightning](https://lightning.ai/) implementation of our paper: ***A Multi-Scale Decomposition MLP-Mixer for Time Series Analysis***. (https://arxiv.org/abs/2310.11959)
+This is the [PyTorch](https://pytorch.org/) and [Lightning](https://lightning.ai/) implementation of our **VLDB 2024** paper: ***A Multi-Scale Decomposition MLP-Mixer for Time Series Analysis***. (https://arxiv.org/abs/2310.11959)
 
 If you find this repo useful, please consider citing our paper:
-```
-@misc{zhong2023multiscale,
-      title={A Multi-Scale Decomposition MLP-Mixer for Time Series Analysis}, 
-      author={Shuhan Zhong and Sizhe Song and Guanyao Li and Weipeng Zhuo and Yang Liu and S. -H. Gary Chan},
-      year={2023},
-      eprint={2310.11959},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG}
+```bibtex
+@article{10.14778/3654621.3654637,
+    author = {Zhong, Shuhan and Song, Sizhe and Zhuo, Weipeng and Li, Guanyao and Liu, Yang and Chan, S.-H. Gary},
+    title = {A Multi-Scale Decomposition MLP-Mixer for Time Series Analysis},
+    year = {2024},
+    issue_date = {March 2024},
+    publisher = {VLDB Endowment},
+    volume = {17},
+    number = {7},
+    issn = {2150-8097},
+    doi = {10.14778/3654621.3654637},
+    journal = {Proc. VLDB Endow.},
+    month = {may},
+    pages = {1723–1736},
+    numpages = {14}
 }
 ```
 ## Table of Contents
 
-- [Abstract](#abstract)
-- [Dependency Setup](#dependency-setup)
-- [Dataset Preparation](#dataset-preparation)
-- [Run MSD-Mixer](#run-msd-mixer)
-- [Baselines](#baselines)
-- [Acknoledgements](#acknowledgements)
+- [**MSD-Mixer**: A Multi-Scale Decomposition MLP-Mixer for Time Series Analysis](#msd-mixer-a-multi-scale-decomposition-mlp-mixer-for-time-series-analysis)
+  - [Table of Contents](#table-of-contents)
+  - [Abstract](#abstract)
+  - [Dependency Setup](#dependency-setup)
+  - [Dataset Preparation](#dataset-preparation)
+  - [Run MSD-Mixer](#run-msd-mixer)
+    - [Long-Term Forecasting](#long-term-forecasting)
+    - [Short-Term Forecasting](#short-term-forecasting)
+    - [Imputation](#imputation)
+    - [Anomaly Detection](#anomaly-detection)
+    - [Classification](#classification)
+  - [Baselines](#baselines)
+  - [Acknowledgements](#acknowledgements)
 
 ## Abstract
 Time series data, including univariate and multivariate ones, are characterized by unique composition and complex multi-scale temporal variations. They often require special consideration of decomposition and multi-scale modeling to analyze. Existing deep learning methods on this best fit to univariate time series only, and have not sufficiently considered sub-series level modeling and decomposition completeness. To address these challenges, we propose **MSD-Mixer**, a **M**ulti-**S**cale **D**ecomposition MLP-**Mixer**, which learns to explicitly decompose the input time series into different components, and represent the components in different layers. To handle the multi-scale temporal patterns and multivariate dependencies, we propose a novel temporal patching approach to model the time series as multi-scale sub-series (i.e., patches), and employ MLPs to capture intra- and inter-patch variations and channel-wise correlations. In addition, we propose a novel loss function to constrain both the magnitude and autocorrelation of the decomposition residual for better decomposition completeness. Through extensive experiments on various real-world datasets for five common time series analysis tasks, we demonstrate that MSD-Mixer consistently and significantly outperforms other state-of-the-art algorithms.

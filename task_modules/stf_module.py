@@ -123,7 +123,7 @@ class STFModule:
         df = pd.DataFrame(results)
         df.to_csv(self.sub_exp_dir / 'metrics.csv', index=False)
         best_model_path = self.sub_exp_dir / 'checkpoint.pth'
-        self.model.load_state_dict(torch.load(best_model_path))
+        self.model.load_state_dict(torch.load(best_model_path, weights_only=True))
 
     def vali(self, train_loader, vali_loader):
         x, _ = train_loader.dataset.last_insample_window()
